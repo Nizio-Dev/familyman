@@ -2,5 +2,8 @@
 
 namespace FamilyMan.API.Authorization.Resources;
 
-public class MemberOwnerOnlyRequirement : IMemberOwnerOnlyRequirement{}
+public class MemberOwnerOnlyRequirement : IMemberOwnerOnlyRequirement
+{
+
+}
 
