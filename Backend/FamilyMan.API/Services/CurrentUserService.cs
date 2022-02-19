@@ -18,8 +18,7 @@ public class CurrentUserService : ICurrentUserService
 
 
     public Member? Member => _context.Members.FirstOrDefault(
-        m => m.Email == _currentUser.Claims.FirstOrDefault(
-            c => c.Type == ClaimTypes.NameIdentifier).Value);
+        m => m.Email == _currentUser.Claims.FirstOrDefault( c => c.Type == ClaimTypes.NameIdentifier).Value);
 
 
     public ClaimsPrincipal MemberIdentity => _currentUser;

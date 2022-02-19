@@ -58,7 +58,7 @@ public class MemberService : IMemberService
             throw new ResourceNotFoundException("User not found.");
         }
 
-        var testFactory = _requirementFactory.Create() as IAuthorizationRequirement; // Testing
+        var testFactory = _requirementFactory.Create("MemberOwnerOnlyRequirement");
         var testListReq = new List<IAuthorizationRequirement>(){testFactory}; // Testing
 
         var authorization = await _authorizationService.AuthorizeAsync(_currentUserService.MemberIdentity, member,  //Testing

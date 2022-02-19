@@ -1,8 +1,8 @@
-﻿using FamilyMan.Application.Interfaces;
+﻿using Microsoft.AspNetCore.Authorization;
 
 namespace FamilyMan.API.Authorization.Resources;
 
-public class MemberOwnerOnlyRequirement : IMemberOwnerOnlyRequirement
+public class MemberOwnerOnlyRequirement : IAuthorizationRequirement
 {
 
 }
