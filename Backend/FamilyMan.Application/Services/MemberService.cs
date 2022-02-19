@@ -53,18 +53,18 @@ public class MemberService : IMemberService
     {
         var member = await _context.Members.FirstOrDefaultAsync(m => m.Id.ToString() == id);
 
-        var testFactory = _memberOwnerOnlyRequirementFactory.Create() as IAuthorizationRequirement;
-        var testListReq = new List<IAuthorizationRequirement>(){testFactory};
-
-        var auth = await _authorizationService.AuthorizeAsync(_currentUserService.MemberIdentity, member, 
-            testListReq);
-
         if(member == null)
         {
             throw new ResourceNotFoundException("User not found.");
         }
 
-        if (!auth.Succeeded)
+        var testFactory = _memberOwnerOnlyRequirementFactory.Create() as IAuthorizationRequirement; // Testing
+        var testListReq = new List<IAuthorizationRequirement>(){testFactory}; // Testing
+
+        var authorization = await _authorizationService.AuthorizeAsync(_currentUserService.MemberIdentity, member,  //Testing
+            testListReq);
+
+        if (!authorization.Succeeded)
         {
             throw new ForbiddenException("Access forbidden.");
         }
