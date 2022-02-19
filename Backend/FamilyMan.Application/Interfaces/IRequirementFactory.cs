@@ -1,7 +1,7 @@
 ﻿
 namespace FamilyMan.Application.Interfaces;
 
-public interface IMemberOwnerOnlyRequirementFactory
+public interface IRequirementFactory
 {
     IMemberOwnerOnlyRequirement Create();
 }

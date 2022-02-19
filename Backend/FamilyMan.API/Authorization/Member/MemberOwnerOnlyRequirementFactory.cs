@@ -2,7 +2,7 @@
 
 namespace FamilyMan.API.Authorization.Resources;
 
-public class MemberOwnerOnlyRequirementFactory : IMemberOwnerOnlyRequirementFactory
+public class RequirementFactory : IRequirementFactory
 {
     public IMemberOwnerOnlyRequirement Create()
     {

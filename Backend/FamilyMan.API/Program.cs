@@ -25,7 +25,7 @@ builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 // Add authorization
 builder.Services.AddScoped<IAuthorizationHandler, MemberOwnerOnlyHandler>();
 builder.Services.AddScoped<IMemberOwnerOnlyRequirement, MemberOwnerOnlyRequirement>();
-builder.Services.AddScoped<IMemberOwnerOnlyRequirementFactory, MemberOwnerOnlyRequirementFactory>();
+builder.Services.AddScoped<IRequirementFactory, RequirementFactory>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

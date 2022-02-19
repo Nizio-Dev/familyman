@@ -17,18 +17,18 @@ public class MemberService : IMemberService
     private readonly IIdentityService _identityService;
     private readonly IAuthorizationService _authorizationService;
     private readonly ICurrentUserService _currentUserService;
-    private readonly IMemberOwnerOnlyRequirementFactory _memberOwnerOnlyRequirementFactory;
+    private readonly IRequirementFactory _requirementFactory;
 
     public MemberService(IFamilyManDbContext context, IMapper mapper,
         IIdentityService identityService, IAuthorizationService authorizationService,
-        ICurrentUserService currentUserService, IMemberOwnerOnlyRequirementFactory memberOwnerOnlyRequirementFactory)
+        ICurrentUserService currentUserService, IRequirementFactory requirementFactory)
     {
         _context = context;
         _mapper = mapper;
         _identityService = identityService;
         _authorizationService = authorizationService;
         _currentUserService = currentUserService;
-        _memberOwnerOnlyRequirementFactory = memberOwnerOnlyRequirementFactory;
+        _requirementFactory = requirementFactory;
     }
 
 
@@ -58,7 +58,7 @@ public class MemberService : IMemberService
             throw new ResourceNotFoundException("User not found.");
         }
 
-        var testFactory = _memberOwnerOnlyRequirementFactory.Create() as IAuthorizationRequirement; // Testing
+        var testFactory = _requirementFactory.Create() as IAuthorizationRequirement; // Testing
         var testListReq = new List<IAuthorizationRequirement>(){testFactory}; // Testing
 
         var authorization = await _authorizationService.AuthorizeAsync(_currentUserService.MemberIdentity, member,  //Testing
