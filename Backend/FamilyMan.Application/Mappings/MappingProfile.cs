@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using FamilyMan.Application.Dto.Responses;
-using FamilyMan.Core.Models;
+using FamilyMan.Domain.Models;
 
 namespace FamilyMan.Application.Mappings;
 

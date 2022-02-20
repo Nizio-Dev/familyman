@@ -1,5 +1,5 @@
 using FamilyMan.API.Authorization;
-using FamilyMan.API.Authorization.Resources;
+using FamilyMan.API.Authorization.Enum;
 using FamilyMan.API.Interfaces;
 using FamilyMan.API.Services;
 using FamilyMan.Application;
@@ -22,11 +22,6 @@ x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddScoped<IJWTService, JWTService>();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
-// Add authorization
-builder.Services.AddScoped<IAuthorizationHandler, MemberOwnerOnlyHandler>();
-builder.Services.AddScoped<IMemberOwnerOnlyRequirement, MemberOwnerOnlyRequirement>();
-builder.Services.AddScoped<IRequirementFactory, RequirementFactory>();
-
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -44,11 +39,13 @@ builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
 // Add authentication
-builder.Services.AddAuthentication(options => {
+builder.Services.AddAuthentication(options => 
+{
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options => {
+}).AddJwtBearer(options => 
+{
     options.TokenValidationParameters = new TokenValidationParameters() {
         ValidateIssuer = true,
         ValidIssuer = "https://localhost:7285",
@@ -57,13 +54,23 @@ builder.Services.AddAuthentication(options => {
         ValidateLifetime = true,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtConfig:secret"]))
     };
-    options.Events = new JwtBearerEvents {
-        OnMessageReceived = context => {
+    options.Events = new JwtBearerEvents 
+    {
+        OnMessageReceived = context => 
+        {
             context.Token = context.Request.Cookies["jwt"];
             return Task.CompletedTask;
         }
     };
 });
+
+// Add authorization
+builder.Services.AddScoped<IAuthorizationHandler, MemberOwnerOnlyHandler>();
+
+// Setip authorization
+builder.Services.AddAuthorization(options =>
+    options.AddPolicy(Policies.MemberFamily, policy => policy.Requirements.Add(new MemberOwnerOnlyRequirement()))
+);
 
 var app = builder.Build();
 

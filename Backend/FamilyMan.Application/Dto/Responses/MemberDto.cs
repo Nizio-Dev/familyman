@@ -1,4 +1,4 @@
-﻿using FamilyMan.Core.Models;
+﻿using FamilyMan.Domain.Models;
 
 namespace FamilyMan.Application.Dto.Responses;
 

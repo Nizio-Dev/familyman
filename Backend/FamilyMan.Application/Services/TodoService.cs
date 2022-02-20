@@ -3,7 +3,7 @@ using FamilyMan.Application.Dto.Requests;
 using FamilyMan.Application.Dto.Responses;
 using FamilyMan.Application.Exceptions;
 using FamilyMan.Application.Interfaces;
-using FamilyMan.Core.Models;
+using FamilyMan.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace FamilyMan.Application.Services;

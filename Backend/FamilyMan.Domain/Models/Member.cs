@@ -1,4 +1,4 @@
-﻿namespace FamilyMan.Core.Models;
+﻿namespace FamilyMan.Domain.Models;
 
 public class Member
 {

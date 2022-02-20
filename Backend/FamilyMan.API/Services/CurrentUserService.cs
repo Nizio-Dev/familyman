@@ -1,5 +1,5 @@
 ﻿using FamilyMan.Application.Interfaces;
-using FamilyMan.Core.Models;
+using FamilyMan.Domain.Models;
 using System.Security.Claims;
 
 namespace FamilyMan.API.Services;
