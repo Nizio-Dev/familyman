@@ -1,8 +1,6 @@
 ﻿using FamilyMan.Application.Interfaces;
 using FamilyMan.Infrastructure.Identity;
-using FamilyMan.Infrastructure.Interfaces;
 using FamilyMan.Infrastructure.Persistence;
-using FamilyMan.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -37,13 +35,7 @@ public static class DependencyInjection
         // Services
         services.AddTransient<IIdentityService, IdentityService>();
 
-        // Repositories
-        services.AddScoped<IMemberRepository, MemberRepository>();
-        services.AddScoped<IFamilyRepository, FamilyRepository>();
-        services.AddScoped<ITodoRepository, TodoRepository>();
-
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
-        
+ 
         return services;
     }
 }
