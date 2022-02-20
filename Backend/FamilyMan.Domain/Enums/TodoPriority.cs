@@ -1,4 +1,4 @@
-﻿namespace FamilyMan.Core.Enums;
+﻿namespace FamilyMan.Domain.Enums;
 
 public enum TodoPriority
 {

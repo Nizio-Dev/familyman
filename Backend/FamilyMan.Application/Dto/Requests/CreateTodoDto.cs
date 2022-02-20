@@ -1,4 +1,4 @@
-﻿using FamilyMan.Core.Enums;
+﻿using FamilyMan.Domain.Enums;
 
 namespace FamilyMan.Application.Dto.Requests;
 

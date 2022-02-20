@@ -1,5 +1,4 @@
-﻿using FamilyMan.API.Authorization.Resources;
-using FamilyMan.Core.Models;
+﻿using FamilyMan.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 
@@ -7,7 +6,7 @@ namespace FamilyMan.API.Authorization;
 
 public class MemberOwnerOnlyHandler : AuthorizationHandler<MemberOwnerOnlyRequirement, Member>
 {
-    protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, MemberOwnerOnlyRequirement requirement, 
+    protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, MemberOwnerOnlyRequirement requirement,
         Member member)
     {
 

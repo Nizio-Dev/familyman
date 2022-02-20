@@ -1,5 +1,4 @@
-﻿using FamilyMan.Core.Enums;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace FamilyMan.Application.Dto.Requests;
 

@@ -1,5 +1,4 @@
-﻿using FamilyMan.API.Authorization.Resources;
-using FamilyMan.Core.Models;
+﻿using FamilyMan.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 

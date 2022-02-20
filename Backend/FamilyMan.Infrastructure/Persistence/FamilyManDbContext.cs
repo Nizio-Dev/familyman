@@ -1,5 +1,5 @@
 ﻿using FamilyMan.Application.Interfaces;
-using FamilyMan.Core.Models;
+using FamilyMan.Domain.Models;
 using FamilyMan.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

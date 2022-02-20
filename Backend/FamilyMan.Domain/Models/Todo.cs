@@ -1,6 +1,6 @@
-﻿using FamilyMan.Core.Enums;
+﻿using FamilyMan.Domain.Enums;
 
-namespace FamilyMan.Core.Models;
+namespace FamilyMan.Domain.Models;
 
 public class Todo
 {
