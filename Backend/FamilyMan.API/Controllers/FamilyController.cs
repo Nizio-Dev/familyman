@@ -51,7 +51,7 @@ public class FamilyController : ControllerBase
         {
             familyToBeFound = await _familyService.GetFamilyByIdAsync(familyId);
         }
-        catch (ForbiddenException exception)
+        catch (ResourceNotFoundException exception)
         {
             return NotFound(exception.Message);
         }

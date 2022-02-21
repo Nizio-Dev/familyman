@@ -3,6 +3,7 @@ using System;
 using FamilyMan.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FamilyMan.Infrastructure.Migrations
 {
     [DbContext(typeof(FamilyManDbContext))]
-    partial class FamilyManDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220221000818_Added planned completion date for todos")]
+    partial class Addedplannedcompletiondatefortodos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,7 +81,7 @@ namespace FamilyMan.Infrastructure.Migrations
                     b.Property<Guid?>("OwnerId")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime?>("PlannedCompletionDate")
+                    b.Property<DateTime>("PlannedCompletionDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("Priority")

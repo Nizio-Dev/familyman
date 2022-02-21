@@ -39,14 +39,14 @@ public class TodoController : ControllerBase
 
 
     [Authorize]
-    [HttpPost("{todoId}")]
+    [HttpPost("{todoId}/complete")]
     public async Task<ActionResult<TodoDto>> FinishTodoAsync([FromRoute] string todoId)
     {
         try
         {
             await _todoService.FinishTodoByIdAsync(todoId);
         }
-        catch (ForbiddenException exception)
+        catch (ResourceNotFoundException exception)
         {
             return NotFound(exception.Message);
         }
@@ -65,7 +65,7 @@ public class TodoController : ControllerBase
         {
             todoToBeFound = await _todoService.GetTodoByIdAsync(todoId);
         }
-        catch (ForbiddenException exception)
+        catch (ResourceNotFoundException exception)
         {
             return NotFound(exception.Message);
         }
@@ -86,7 +86,7 @@ public class TodoController : ControllerBase
         {
             await _todoService.DeleteTodoByIdAsync(todoId);
         }
-        catch (ForbiddenException exception)
+        catch (ResourceNotFoundException exception)
         {
             return NotFound(exception.Message);
         }

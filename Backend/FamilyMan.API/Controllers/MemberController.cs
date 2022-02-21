@@ -30,7 +30,7 @@ public class MemberController : ControllerBase
         {
             memberToBeFound = await _memberService.GetMemberByIdAsync(userId);
         }
-        catch (ForbiddenException exception)
+        catch (ResourceNotFoundException exception)
         {
             return NotFound(exception.Message);
         }
@@ -51,7 +51,7 @@ public class MemberController : ControllerBase
         {
             await _memberService.DeleteMemberByIdAsync(userId);
         }
-        catch (ForbiddenException exception)
+        catch (ResourceNotFoundException exception)
         {
             return NotFound(exception.Message);
         }

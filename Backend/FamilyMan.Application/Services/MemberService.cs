@@ -42,7 +42,7 @@ public class MemberService : IMemberService
 
     public async Task<MemberDto> GetMemberByIdAsync(string id)
     {
-        var member = await _dbContext.Members.FindAsync(id);
+        var member = await _dbContext.Members.FindAsync(new Guid(id));
 
         if(member == null)
         {

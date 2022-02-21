@@ -7,6 +7,6 @@ public class CreateTodoDto
     public string Name { get; set; }
     public string Description { get; set; }
     public TodoPriority Priority { get; set; }
-    public DateTime CompletionDate { get; set; }
+    public DateTime PlannedCompletionDate { get; set; }
 }
 

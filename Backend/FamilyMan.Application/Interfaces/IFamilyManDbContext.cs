@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FamilyMan.Application.Interfaces;
 
-public interface IFamilyManDbContext : IDisposable
+public interface IFamilyManDbContext
 {
     public DbSet<Member> Members { get; set; }
     public DbSet<Family> Families { get; set; }

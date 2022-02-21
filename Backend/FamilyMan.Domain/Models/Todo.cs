@@ -11,6 +11,7 @@ public class Todo
     public TodoPriority Priority { get; set; }
     public bool IsFinished { get; set; }
     public DateTime CreationDate { get; set; }
+    public DateTime? PlannedCompletionDate { get; set; } = null;
     public DateTime? CompletionDate { get; set; } = null;
 }
 

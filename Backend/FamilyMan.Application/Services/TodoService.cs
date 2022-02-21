@@ -29,11 +29,14 @@ public class TodoService : ITodoService
 
         var newTodo = new Todo()
         {
+            Id = Guid.NewGuid(),
             Name = todo.Name,
             Description = todo.Description,
             Priority = todo.Priority,
             Owner = _currentUser.Member,
             CreationDate = DateTime.UtcNow,
+            PlannedCompletionDate = todo.PlannedCompletionDate
+            
             IsFinished = false,
         };
 

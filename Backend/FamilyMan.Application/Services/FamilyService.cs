@@ -27,6 +27,7 @@ public class FamilyService : IFamilyService
 
         var newFamily = new Family
         {
+            Id = Guid.NewGuid(),
             Name = family.Name,
             Head = _currentUser.Member,
             Members = new List<Member>{_currentUser.Member}
