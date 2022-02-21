@@ -5,7 +5,6 @@ using FamilyMan.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Moq;
-using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using Xunit;
@@ -22,23 +21,17 @@ public class CurrentUserServiceTests
             .UseInMemoryDatabase(databaseName: "in-memory")
             .Options;
 
+        var newMember = new Member("mock@test1.com");
 
         using (var context = new FamilyManDbContext(options))
         {
-            context.Members.Add(new Member
-            { 
-                Id = new Guid("11111111-1111-1111-1111-111111111111"),
-                Email = "mock@test.com",
-                Families = null,
-                HeadOFamilies = null,
-                Todos = null
-            });
+            context.Members.Add(newMember);
             context.SaveChanges();
         }
 
         var claims = new List<Claim>()
         {
-            new Claim(ClaimTypes.NameIdentifier, "11111111-1111-1111-1111-111111111111")
+            new Claim(ClaimTypes.NameIdentifier, newMember.Id.ToString())
         };
 
         var identity = new ClaimsPrincipal(new ClaimsIdentity(claims));
@@ -59,27 +52,21 @@ public class CurrentUserServiceTests
     [Fact]
     public void MemberIdentity_MemberIdentityTest_ReturnsUsersIdentity()
     {
-         var options = new DbContextOptionsBuilder<FamilyManDbContext>()
+        var options = new DbContextOptionsBuilder<FamilyManDbContext>()
             .UseInMemoryDatabase(databaseName: "in-memory")
             .Options;
 
+        var newMember = new Member("mock@test2.com");
 
         using (var context = new FamilyManDbContext(options))
         {
-            context.Members.Add(new Member
-            { 
-                Id = new Guid("22222222-2222-2222-2222-222222222222"),
-                Email = "mock2@test2.com",
-                Families = null,
-                HeadOFamilies = null,
-                Todos = null
-            });
+            context.Members.Add(newMember);
             context.SaveChanges();
         }
 
         var claims = new List<Claim>()
         {
-            new Claim(ClaimTypes.NameIdentifier, "22222222-2222-2222-2222-222222222222")
+            new Claim(ClaimTypes.NameIdentifier, newMember.Id.ToString())
         };
 
         var identity = new ClaimsPrincipal(new ClaimsIdentity(claims));

@@ -27,18 +27,8 @@ public class TodoService : ITodoService
     public async Task<TodoDto> CreateTodoAsync(CreateTodoDto todo)
     {
 
-        var newTodo = new Todo()
-        {
-            Id = Guid.NewGuid(),
-            Name = todo.Name,
-            Description = todo.Description,
-            Priority = todo.Priority,
-            Owner = _currentUser.Member,
-            CreationDate = DateTime.UtcNow,
-            PlannedCompletionDate = todo.PlannedCompletionDate
-            
-            IsFinished = false,
-        };
+        var newTodo = new Todo(todo.Name, todo.Description, _currentUser.Member, todo.Priority, 
+            todo.PlannedCompletionDate);
 
         await _context.Todos.AddAsync(newTodo);
 
@@ -56,8 +46,7 @@ public class TodoService : ITodoService
             throw new ResourceNotFoundException("Todo not found.");
         }
 
-        todo.IsFinished = true;
-        todo.CompletionDate = DateTime.UtcNow;
+        todo.FinishTask();
 
         await _context.SaveChangesAsync();
     }

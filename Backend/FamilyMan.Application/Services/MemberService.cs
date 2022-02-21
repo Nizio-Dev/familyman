@@ -24,14 +24,7 @@ public class MemberService : IMemberService
 
     public async Task<MemberDto> CreateMemberAsync(CreateMemberDto member)
     {
-
-        var newMember = new Member()
-        {
-            Id = Guid.NewGuid(),
-            Email = member.Email,
-            Families = null,
-            HeadOFamilies = null
-        };
+        var newMember = new Member(member.Email);
 
         await _identityService.AddUserAsync(newMember.Id, member.Email, member.Password);            
         _dbContext.Members.Add(newMember);

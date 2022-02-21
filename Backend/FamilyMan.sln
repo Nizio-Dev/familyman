@@ -16,7 +16,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Todo.txt = Todo.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FamilyMan.API.Tests", "FamilyMan.API.Tests\FamilyMan.API.Tests.csproj", "{7C281242-2B5C-4DC2-9440-71F0FB47A2DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FamilyMan.API.Tests", "FamilyMan.API.Tests\FamilyMan.API.Tests.csproj", "{7C281242-2B5C-4DC2-9440-71F0FB47A2DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FamilyMan.Domain.Tests", "FamilyMan.Domain.Tests\FamilyMan.Domain.Tests.csproj", "{BA5D1415-A9C3-4A1E-BE19-F780D07B3A19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +46,10 @@ Global
 		{7C281242-2B5C-4DC2-9440-71F0FB47A2DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C281242-2B5C-4DC2-9440-71F0FB47A2DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C281242-2B5C-4DC2-9440-71F0FB47A2DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA5D1415-A9C3-4A1E-BE19-F780D07B3A19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA5D1415-A9C3-4A1E-BE19-F780D07B3A19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA5D1415-A9C3-4A1E-BE19-F780D07B3A19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA5D1415-A9C3-4A1E-BE19-F780D07B3A19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

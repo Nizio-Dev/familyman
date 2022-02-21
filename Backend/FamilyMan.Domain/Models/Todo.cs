@@ -13,5 +13,25 @@ public class Todo
     public DateTime CreationDate { get; set; }
     public DateTime? PlannedCompletionDate { get; set; } = null;
     public DateTime? CompletionDate { get; set; } = null;
+
+    public Todo(string name, string description, Member currentUser, TodoPriority priority,
+        DateTime? plannedCompletionDate)
+    {
+        Id = Guid.NewGuid();
+        Owner = currentUser;
+        Name = name;
+        Description = description;
+        Priority = priority;
+        IsFinished = false;
+        CreationDate = DateTime.UtcNow;
+        PlannedCompletionDate = plannedCompletionDate;
+        CompletionDate = null;
+    }
+
+    public void FinishTask()
+    {
+        IsFinished = true;
+        CompletionDate = DateTime.UtcNow;
+    }
 }
 

@@ -25,13 +25,7 @@ public class FamilyService : IFamilyService
     public async Task<FamilyDto> CreateFamilyAsync(CreateFamilyDto family)
     {
 
-        var newFamily = new Family
-        {
-            Id = Guid.NewGuid(),
-            Name = family.Name,
-            Head = _currentUser.Member,
-            Members = new List<Member>{_currentUser.Member}
-        };
+        var newFamily = new Family(family.Name, _currentUser.Member);
 
         await _context.Families.AddAsync(newFamily);
         await _context.SaveChangesAsync();
