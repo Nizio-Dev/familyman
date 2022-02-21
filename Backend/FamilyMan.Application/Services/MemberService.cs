@@ -4,6 +4,7 @@ using FamilyMan.Application.Dto.Responses;
 using FamilyMan.Application.Interfaces;
 using FamilyMan.Application.Exceptions;
 using FamilyMan.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FamilyMan.Application.Services;
 
@@ -24,6 +25,14 @@ public class MemberService : IMemberService
 
     public async Task<MemberDto> CreateMemberAsync(CreateMemberDto member)
     {
+
+        var memberExists = await _dbContext.Members.FirstOrDefaultAsync(m => m.Email == member.Email);
+
+        if(memberExists != null)
+        {
+            throw new ResourceAlreadyExistsException("User already exists.");
+        }
+
         var newMember = new Member(member.Email);
 
         await _identityService.AddUserAsync(newMember.Id, member.Email, member.Password);            
@@ -67,6 +76,7 @@ public class MemberService : IMemberService
             throw new ResourceNotFoundException("User not found.");
         }
 
+        _identityService.RemoveUserAsync(member);
         _dbContext.Members.Remove(member);
         await _dbContext.SaveChangesAsync();
     }
