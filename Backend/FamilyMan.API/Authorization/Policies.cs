@@ -1,8 +1,8 @@
 ﻿namespace FamilyMan.API.Authorization;
 
-public record Policies
+public static class Policies
 {
-    public static string MemberOwner => "MemberOwner";
-    public static string MemberFamily => "MemberFamily";
+    public static readonly string MemberOwner = "MemberOwner";
+    public static readonly string MemberFamily = "MemberFamily";
 }
 

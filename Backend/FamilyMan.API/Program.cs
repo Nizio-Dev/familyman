@@ -64,12 +64,13 @@ builder.Services.AddAuthentication(options =>
 });
 
 // Add authorization
-builder.Services.AddScoped<IAuthorizationHandler, MemberOwnerOnlyHandler>();
+//builder.Services.AddScoped<IAuthorizationHandler, MemberOwnerOnlyHandler>();
 
-// Setip authorization
 builder.Services.AddAuthorization(options =>
-    options.AddPolicy(Policies.MemberFamily, policy => policy.Requirements.Add(new MemberOwnerOnlyRequirement()))
-);
+{
+    options.AddPolicy(Policies.MemberOwner, policy => policy.Requirements.Add(new MemberOwnerOnlyRequirement()));
+    options.AddPolicy(Policies.MemberFamily, policy => policy.Requirements.Add(new MemberFamilyOnlyRequirement()));
+});
 
 var app = builder.Build();
 

@@ -12,19 +12,38 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FamilyMan.Infrastructure.Migrations
 {
     [DbContext(typeof(FamilyManDbContext))]
-    [Migration("20220120013826_Changed name to email for member entity")]
-    partial class Changednametoemailformemberentity
+    [Migration("20220221194426_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.1")
+                .HasAnnotation("ProductVersion", "6.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("FamilyMan.Core.Models.Member", b =>
+            modelBuilder.Entity("FamilyMan.Domain.Models.Family", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("HeadId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HeadId");
+
+                    b.ToTable("Families");
+                });
+
+            modelBuilder.Entity("FamilyMan.Domain.Models.Member", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -33,9 +52,49 @@ namespace FamilyMan.Infrastructure.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("text");
 
+                    b.Property<bool>("IsConfirmed")
+                        .HasColumnType("boolean");
+
                     b.HasKey("Id");
 
                     b.ToTable("Members");
+                });
+
+            modelBuilder.Entity("FamilyMan.Domain.Models.Todo", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("CompletionDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsFinished")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("OwnerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("PlannedCompletionDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("Todos");
                 });
 
             modelBuilder.Entity("FamilyMan.Infrastructure.Identity.ApplicationUser", b =>
@@ -100,6 +159,21 @@ namespace FamilyMan.Infrastructure.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("FamilyMember", b =>
+                {
+                    b.Property<Guid>("FamiliesId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("MembersId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("FamiliesId", "MembersId");
+
+                    b.HasIndex("MembersId");
+
+                    b.ToTable("FamilyMember");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -234,6 +308,39 @@ namespace FamilyMan.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("FamilyMan.Domain.Models.Family", b =>
+                {
+                    b.HasOne("FamilyMan.Domain.Models.Member", "Head")
+                        .WithMany("HeadOfamilies")
+                        .HasForeignKey("HeadId");
+
+                    b.Navigation("Head");
+                });
+
+            modelBuilder.Entity("FamilyMan.Domain.Models.Todo", b =>
+                {
+                    b.HasOne("FamilyMan.Domain.Models.Member", "Owner")
+                        .WithMany("Todos")
+                        .HasForeignKey("OwnerId");
+
+                    b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("FamilyMember", b =>
+                {
+                    b.HasOne("FamilyMan.Domain.Models.Family", null)
+                        .WithMany()
+                        .HasForeignKey("FamiliesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FamilyMan.Domain.Models.Member", null)
+                        .WithMany()
+                        .HasForeignKey("MembersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -283,6 +390,13 @@ namespace FamilyMan.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("FamilyMan.Domain.Models.Member", b =>
+                {
+                    b.Navigation("HeadOfamilies");
+
+                    b.Navigation("Todos");
                 });
 #pragma warning restore 612, 618
         }

@@ -33,7 +33,7 @@ public class Todo
         CompletionDate = null;
     }
 
-    public void FinishTask()
+    public void CompleteTask()
     {
         IsFinished = true;
         CompletionDate = DateTime.UtcNow;

@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace FamilyMan.Infrastructure.Migrations
 {
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -50,31 +50,16 @@ namespace FamilyMan.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Families",
+                name: "Members",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    HeadId = table.Column<Guid>(type: "uuid", nullable: false)
+                    IsConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Families", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Todos",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    OwnerId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    Description = table.Column<string>(type: "text", nullable: true),
-                    TodoPriority = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Todos", x => x.Id);
+                    table.PrimaryKey("PK_Members", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -184,21 +169,69 @@ namespace FamilyMan.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Members",
+                name: "Families",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: true),
-                    FamilyId = table.Column<Guid>(type: "uuid", nullable: true)
+                    HeadId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Members", x => x.Id);
+                    table.PrimaryKey("PK_Families", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Members_Families_FamilyId",
-                        column: x => x.FamilyId,
-                        principalTable: "Families",
+                        name: "FK_Families_Members_HeadId",
+                        column: x => x.HeadId,
+                        principalTable: "Members",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Todos",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    OwnerId = table.Column<Guid>(type: "uuid", nullable: true),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    Priority = table.Column<int>(type: "integer", nullable: false),
+                    IsFinished = table.Column<bool>(type: "boolean", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    PlannedCompletionDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    CompletionDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Todos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Todos_Members_OwnerId",
+                        column: x => x.OwnerId,
+                        principalTable: "Members",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FamilyMember",
+                columns: table => new
+                {
+                    FamiliesId = table.Column<Guid>(type: "uuid", nullable: false),
+                    MembersId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FamilyMember", x => new { x.FamiliesId, x.MembersId });
+                    table.ForeignKey(
+                        name: "FK_FamilyMember_Families_FamiliesId",
+                        column: x => x.FamiliesId,
+                        principalTable: "Families",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FamilyMember_Members_MembersId",
+                        column: x => x.MembersId,
+                        principalTable: "Members",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -239,9 +272,19 @@ namespace FamilyMan.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Members_FamilyId",
-                table: "Members",
-                column: "FamilyId");
+                name: "IX_Families_HeadId",
+                table: "Families",
+                column: "HeadId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FamilyMember_MembersId",
+                table: "FamilyMember",
+                column: "MembersId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Todos_OwnerId",
+                table: "Todos",
+                column: "OwnerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -262,7 +305,7 @@ namespace FamilyMan.Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Members");
+                name: "FamilyMember");
 
             migrationBuilder.DropTable(
                 name: "Todos");
@@ -275,6 +318,9 @@ namespace FamilyMan.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Families");
+
+            migrationBuilder.DropTable(
+                name: "Members");
         }
     }
 }

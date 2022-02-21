@@ -1,3 +1,4 @@
 Add cascade remove for member entity. Currently unable to remove member without removing todos and families
 Add Todo plannedcompletiontime and completion in fluentvalidation to be data
 Refactor currentuserservice tests
+Add authorization

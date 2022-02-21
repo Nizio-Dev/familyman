@@ -35,7 +35,10 @@ public class FamilyService : IFamilyService
 
     public async Task<FamilyDto> GetFamilyByIdAsync(string familyId)
     {
-        var family = await _context.Families.FindAsync(Guid.Parse(familyId));
+        var family = await _context.Families
+            .Include(h => h.Head)
+            .Include(ms => ms.Members)
+            .FirstOrDefaultAsync(f => f.Id == Guid.Parse(familyId));
 
         if(family == null)
         {

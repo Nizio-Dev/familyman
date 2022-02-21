@@ -18,17 +18,20 @@ public class FamilyManDbContext : IdentityDbContext<ApplicationUser>, IFamilyMan
     {
         base.OnModelCreating(builder);
 
-        builder.Entity<Member>()
-            .HasMany(f => f.Families)
-            .WithMany(m => m.Members);
+
+
+       builder.Entity<Member>()
+            .HasMany(m => m.Families)
+            .WithMany(f => f.Members);
 
         builder.Entity<Member>()
-            .HasMany(h => h.HeadOFamilies)
-            .WithOne(hof => hof.Head);
+            .HasMany(m => m.HeadOfamilies)
+            .WithOne(f => f.Head);
 
         builder.Entity<Member>()
-            .HasMany(t => t.Todos)
-            .WithOne(o => o.Owner);
+            .HasMany(m => m.Todos)
+            .WithOne(t => t.Owner);
+
 
     }
 }

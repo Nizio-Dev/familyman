@@ -309,7 +309,7 @@ namespace FamilyMan.Infrastructure.Migrations
             modelBuilder.Entity("FamilyMan.Domain.Models.Family", b =>
                 {
                     b.HasOne("FamilyMan.Domain.Models.Member", "Head")
-                        .WithMany("HeadOFamilies")
+                        .WithMany("HeadOfamilies")
                         .HasForeignKey("HeadId");
 
                     b.Navigation("Head");
@@ -392,7 +392,7 @@ namespace FamilyMan.Infrastructure.Migrations
 
             modelBuilder.Entity("FamilyMan.Domain.Models.Member", b =>
                 {
-                    b.Navigation("HeadOFamilies");
+                    b.Navigation("HeadOfamilies");
 
                     b.Navigation("Todos");
                 });

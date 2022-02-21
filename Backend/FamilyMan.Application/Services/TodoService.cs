@@ -37,7 +37,7 @@ public class TodoService : ITodoService
         return _mapper.Map<TodoDto>(newTodo);
     }
 
-    public async Task FinishTodoByIdAsync(string todoId)
+    public async Task CompleteTodoByIdAsync(string todoId)
     {
         var todo = await _context.Todos.FindAsync(Guid.Parse(todoId));
 
@@ -46,7 +46,7 @@ public class TodoService : ITodoService
             throw new ResourceNotFoundException("Todo not found.");
         }
 
-        todo.FinishTask();
+        todo.CompleteTask();
 
         await _context.SaveChangesAsync();
     }
@@ -67,7 +67,7 @@ public class TodoService : ITodoService
 
     public async Task<TodoDto> GetTodoByIdAsync(string todoId)
     {
-        var todo = await _context.Todos.FindAsync(Guid.Parse(todoId));
+        var todo = await _context.Todos.Include(m => m.Owner).FirstOrDefaultAsync(m => m.Id == Guid.Parse(todoId));
 
         if(todo == null)
         {

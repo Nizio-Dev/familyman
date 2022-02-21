@@ -44,7 +44,10 @@ public class MemberService : IMemberService
 
     public async Task<MemberDto> GetMemberByIdAsync(string memberId)
     {
-        var member = await _dbContext.Members.FindAsync(Guid.Parse(memberId));
+        var member = await _dbContext.Members
+            .Include(hof => hof.HeadOfamilies)
+            .Include(f => f.Families)
+            .FirstOrDefaultAsync(m => m.Id == Guid.Parse(memberId));
 
         if(member == null)
         {
@@ -76,7 +79,7 @@ public class MemberService : IMemberService
             throw new ResourceNotFoundException("User not found.");
         }
 
-        _identityService.RemoveUserAsync(member);
+        await _identityService.RemoveUserAsync(member);
         _dbContext.Members.Remove(member);
         await _dbContext.SaveChangesAsync();
     }

@@ -16,7 +16,7 @@ namespace FamilyMan.Domain.Tests
             Assert.NotNull(member.Id);
             Assert.Equal(email, member.Email);
             Assert.Null(member.Families);
-            Assert.Null(member.HeadOFamilies);
+            Assert.Null(member.HeadOfamilies);
             Assert.Null(member.Todos);
             Assert.False(member.IsConfirmed);
         }

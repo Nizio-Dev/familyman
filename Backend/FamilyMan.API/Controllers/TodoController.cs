@@ -40,11 +40,11 @@ public class TodoController : ControllerBase
 
     [Authorize]
     [HttpPost("{todoId}/complete")]
-    public async Task<ActionResult<TodoDto>> FinishTodoAsync([FromRoute] string todoId)
+    public async Task<ActionResult<TodoDto>> CompleteTodoAsync([FromRoute] string todoId)
     {
         try
         {
-            await _todoService.FinishTodoByIdAsync(todoId);
+            await _todoService.CompleteTodoByIdAsync(todoId);
         }
         catch (ResourceNotFoundException exception)
         {

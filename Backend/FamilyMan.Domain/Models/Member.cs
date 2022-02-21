@@ -5,9 +5,9 @@ public class Member
     public Guid Id { get; set; }
     public bool IsConfirmed { get; set; }
     public string Email { get; set; }
-    public List<Family> Families { get; set; }
-    public List<Family> HeadOFamilies { get; set; }
-    public List<Todo> Todos { get; set; }
+    public ICollection<Family> Families { get; set; }
+    public ICollection<Family> HeadOfamilies { get; set; }
+    public ICollection<Todo> Todos { get; set; }
 
     internal Member()
     {
@@ -20,7 +20,7 @@ public class Member
         IsConfirmed = false;
         Email = email;
         Families = null;
-        HeadOFamilies = null;
+        HeadOfamilies = null;
         Todos = null;
     }
 

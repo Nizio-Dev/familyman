@@ -1,4 +1,5 @@
-﻿using FamilyMan.Application.Dto.Responses;
+﻿using FamilyMan.API.Authorization;
+using FamilyMan.Application.Dto.Responses;
 using FamilyMan.Application.Exceptions;
 using FamilyMan.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -20,7 +21,7 @@ public class MemberController : ControllerBase
     }
 
 
-    [Authorize]
+    [Authorize(Policy = "OwnerOnly")]
     [HttpGet("{userId}")]
     public async Task<ActionResult<MemberDto>> GetMemberByIdAsync([FromRoute] string userId)
     {
@@ -43,7 +44,7 @@ public class MemberController : ControllerBase
     }
 
 
-    [Authorize]
+    [Authorize(Policy = "MemberOwner")]
     [HttpDelete("{userId}")]
     public async Task<ActionResult> DeleteByIdAsync([FromRoute] string userId)
     {
