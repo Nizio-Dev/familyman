@@ -37,9 +37,9 @@ public class TodoService : ITodoService
         return _mapper.Map<TodoDto>(newTodo);
     }
 
-    public async Task FinishTodoByIdAsync(string id)
+    public async Task FinishTodoByIdAsync(string todoId)
     {
-        var todo = _context.Todos.FirstOrDefault(t => t.Id.ToString() == id);
+        var todo = await _context.Todos.FindAsync(Guid.Parse(todoId));
 
         if(todo == null)
         {
@@ -51,9 +51,9 @@ public class TodoService : ITodoService
         await _context.SaveChangesAsync();
     }
 
-    public async Task DeleteTodoByIdAsync(string id)
+    public async Task DeleteTodoByIdAsync(string todoId)
     {
-        var todo = _context.Todos.FirstOrDefault(t => t.Id.ToString() == id);
+        var todo = await _context.Todos.FindAsync(Guid.Parse(todoId));
 
         if(todo == null)
         {
@@ -65,9 +65,9 @@ public class TodoService : ITodoService
         await _context.SaveChangesAsync();
     }
 
-    public async Task<TodoDto> GetTodoByIdAsync(string id)
+    public async Task<TodoDto> GetTodoByIdAsync(string todoId)
     {
-        var todo = await _context.Todos.FirstOrDefaultAsync(m => m.Id.ToString() == id);
+        var todo = await _context.Todos.FindAsync(Guid.Parse(todoId));
 
         if(todo == null)
         {

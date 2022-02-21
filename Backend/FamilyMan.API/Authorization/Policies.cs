@@ -1,4 +1,4 @@
-﻿namespace FamilyMan.API.Authorization.Enum;
+﻿namespace FamilyMan.API.Authorization;
 
 public record Policies
 {

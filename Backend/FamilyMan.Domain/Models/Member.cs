@@ -9,9 +9,15 @@ public class Member
     public List<Family> HeadOFamilies { get; set; }
     public List<Todo> Todos { get; set; }
 
+    internal Member()
+    {
+
+    }
+
     public Member(string email)
     {
         Id = Guid.NewGuid();
+        IsConfirmed = false;
         Email = email;
         Families = null;
         HeadOFamilies = null;

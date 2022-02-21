@@ -33,9 +33,9 @@ public class MemberService : IMemberService
         return _mapper.Map<MemberDto>(newMember);
     }
 
-    public async Task<MemberDto> GetMemberByIdAsync(string id)
+    public async Task<MemberDto> GetMemberByIdAsync(string memberId)
     {
-        var member = await _dbContext.Members.FindAsync(new Guid(id));
+        var member = await _dbContext.Members.FindAsync(Guid.Parse(memberId));
 
         if(member == null)
         {
@@ -58,9 +58,9 @@ public class MemberService : IMemberService
     }
 
 
-    public async Task DeleteMemberByIdAsync(string id)
+    public async Task DeleteMemberByIdAsync(string memberId)
     {
-        var member = await _dbContext.Members.FindAsync(id);
+        var member = await _dbContext.Members.FindAsync(Guid.Parse(memberId));
 
         if(member == null)
         {

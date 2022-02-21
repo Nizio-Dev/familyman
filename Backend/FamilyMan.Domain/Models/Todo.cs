@@ -14,6 +14,11 @@ public class Todo
     public DateTime? PlannedCompletionDate { get; set; } = null;
     public DateTime? CompletionDate { get; set; } = null;
 
+    internal Todo()
+    {
+
+    }
+
     public Todo(string name, string description, Member currentUser, TodoPriority priority,
         DateTime? plannedCompletionDate)
     {

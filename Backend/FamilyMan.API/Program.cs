@@ -1,5 +1,4 @@
 using FamilyMan.API.Authorization;
-using FamilyMan.API.Authorization.Enum;
 using FamilyMan.API.Interfaces;
 using FamilyMan.API.Services;
 using FamilyMan.Application;

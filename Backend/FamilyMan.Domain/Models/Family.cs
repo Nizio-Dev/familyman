@@ -7,6 +7,11 @@ public class Family
     public Member Head { get; set; }
     public List<Member> Members { get; set; }
 
+    internal Family()
+    {
+
+    }
+
     public Family(string name, Member currentUser)
     {
         Id = Guid.NewGuid();

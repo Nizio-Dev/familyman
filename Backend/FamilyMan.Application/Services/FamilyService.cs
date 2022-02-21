@@ -35,7 +35,7 @@ public class FamilyService : IFamilyService
 
     public async Task<FamilyDto> GetFamilyByIdAsync(string familyId)
     {
-        var family = await _context.Families.FirstOrDefaultAsync(f => f.Id.ToString() == familyId);
+        var family = await _context.Families.FindAsync(Guid.Parse(familyId));
 
         if(family == null)
         {
