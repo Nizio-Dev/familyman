@@ -1,5 +1,4 @@
-﻿using FamilyMan.API.Authorization;
-using FamilyMan.Application.Dto.Responses;
+﻿using FamilyMan.Application.Dto.Responses;
 using FamilyMan.Application.Exceptions;
 using FamilyMan.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -22,14 +21,14 @@ public class MemberController : ControllerBase
 
 
     [Authorize(Policy = "OwnerOnly")]
-    [HttpGet("{userId}")]
-    public async Task<ActionResult<MemberDto>> GetMemberByIdAsync([FromRoute] string userId)
+    [HttpGet("{memberId}")]
+    public async Task<ActionResult<MemberDto>> GetMemberByIdAsync([FromRoute] string memberId)
     {
         MemberDto memberToBeFound;
 
         try
         {
-            memberToBeFound = await _memberService.GetMemberByIdAsync(userId);
+            memberToBeFound = await _memberService.GetMemberByIdAsync(memberId);
         }
         catch (ResourceNotFoundException exception)
         {
@@ -45,12 +44,12 @@ public class MemberController : ControllerBase
 
 
     [Authorize(Policy = "MemberOwner")]
-    [HttpDelete("{userId}")]
-    public async Task<ActionResult> DeleteByIdAsync([FromRoute] string userId)
+    [HttpDelete("{memberId}")]
+    public async Task<ActionResult> DeleteByIdAsync([FromRoute] string memberId)
     {
         try
         {
-            await _memberService.DeleteMemberByIdAsync(userId);
+            await _memberService.DeleteMemberByIdAsync(memberId);
         }
         catch (ResourceNotFoundException exception)
         {
@@ -59,6 +58,24 @@ public class MemberController : ControllerBase
 
         return NoContent();
 
+    }
+
+    [HttpGet("{memberId}/todo")]
+    public async Task<ActionResult<List<TodoDto>>> GetMemberTodos([FromRoute] string memberId)
+    {
+
+        List<TodoDto> todos;
+
+        try
+        {
+            todos = await _memberService.GetMemberTasksAsync(memberId);
+        }
+        catch(ResourceNotFoundException exception)
+        {
+            return NotFound(exception.Message);
+        }
+
+        return Ok(todos);
     }
 
 

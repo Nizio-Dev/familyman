@@ -55,7 +55,7 @@ public class FamilyController : ControllerBase
         {
             return NotFound(exception.Message);
         }
-            catch
+        catch
         {
             return StatusCode(500);
         }

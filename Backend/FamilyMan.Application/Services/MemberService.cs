@@ -84,5 +84,21 @@ public class MemberService : IMemberService
         await _dbContext.SaveChangesAsync();
     }
 
+    public async Task<List<TodoDto>> GetMemberTasksAsync(string memberId)
+    {
+
+        var member = await _dbContext.Members
+            .Include(t => t.Todos)
+            .FirstOrDefaultAsync(m => m.Id == Guid.Parse(memberId));
+
+        if(member == null)
+        {
+            throw new ResourceNotFoundException("User not found.");
+        }
+
+        var todos = member.Todos.ToList();
+
+       return _mapper.Map<List<Todo>, List<TodoDto>>(todos);
+    }
 
 }

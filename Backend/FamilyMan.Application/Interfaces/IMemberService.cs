@@ -9,4 +9,5 @@ public interface IMemberService
     Task<MemberDto> GetMemberByIdAsync(string id);
     Task<MemberDto> GetMemberByEmailAsync(string email);
     Task DeleteMemberByIdAsync(string id);
+    Task<List<TodoDto>> GetMemberTasksAsync(string id);
 }
