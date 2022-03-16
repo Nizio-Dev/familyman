@@ -3,16 +3,16 @@
 public class Member
 {
     public Guid Id { get; set; }
+
     public bool IsConfirmed { get; set; }
+
     public string Email { get; set; }
+
     public ICollection<Family> Families { get; set; }
+
     public ICollection<Family> HeadOfamilies { get; set; }
+
     public ICollection<Todo> Todos { get; set; }
-
-    internal Member()
-    {
-
-    }
 
     public Member(string email)
     {
@@ -24,9 +24,10 @@ public class Member
         Todos = null;
     }
 
+    internal Member() {}
+
     public void Confirm()
     {
         IsConfirmed = true;
     }
 }
-

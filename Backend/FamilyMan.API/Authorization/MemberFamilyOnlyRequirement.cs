@@ -3,4 +3,3 @@
 namespace FamilyMan.API.Authorization;
 
 public class MemberFamilyOnlyRequirement : IAuthorizationRequirement { }
-

@@ -1,3 +1,5 @@
+using System.Text;
+using System.Text.Json.Serialization;
 using FamilyMan.API.Authorization;
 using FamilyMan.API.Interfaces;
 using FamilyMan.API.Services;
@@ -6,15 +8,12 @@ using FamilyMan.Application.Interfaces;
 using FamilyMan.Infrastructure;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container / Ignore Json reference cycles.
-builder.Services.AddControllers().AddFluentValidation().AddJsonOptions(x => 
+builder.Services.AddControllers().AddFluentValidation().AddJsonOptions(x =>
 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 // Add custom services
@@ -38,34 +37,35 @@ builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
 // Add authentication
-builder.Services.AddAuthentication(options => 
+builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options => 
+}).AddJwtBearer(options =>
 {
-    options.TokenValidationParameters = new TokenValidationParameters() {
+    options.TokenValidationParameters = new TokenValidationParameters()
+    {
         ValidateIssuer = true,
         ValidIssuer = "https://localhost:7285",
         ValidateAudience = true,
         ValidAudience = "https://localhost:3000",
         ValidateLifetime = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtConfig:secret"]))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtConfig:secret"])),
     };
-    options.Events = new JwtBearerEvents 
+
+    options.Events = new JwtBearerEvents
     {
-        OnMessageReceived = context => 
+        OnMessageReceived = context =>
         {
             context.Token = context.Request.Cookies["jwt"];
             return Task.CompletedTask;
-        }
+        },
     };
 });
 
 // Add authorization
-//builder.Services.AddScoped<IAuthorizationHandler, MemberOwnerOnlyHandler>();
-
+// builder.Services.AddScoped<IAuthorizationHandler, MemberOwnerOnlyHandler>();
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy(Policies.MemberOwner, policy => policy.Requirements.Add(new MemberOwnerOnlyRequirement()));

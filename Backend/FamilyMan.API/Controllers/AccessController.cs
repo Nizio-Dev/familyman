@@ -14,11 +14,9 @@ namespace FamilyMan.API.Controllers;
 [ApiController]
 public class AccessController : ControllerBase
 {
-
     private readonly IMemberService _memberService;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly IJWTService _jwt;
-
 
     public AccessController(IMemberService memberService, IJWTService jwt, UserManager<ApplicationUser> userManager)
     {
@@ -26,7 +24,6 @@ public class AccessController : ControllerBase
         _jwt = jwt;
         _userManager = userManager;
     }
-
 
     [HttpPost]
     [Route("register")]
@@ -50,12 +47,10 @@ public class AccessController : ControllerBase
         return CreatedAtAction(nameof(MemberController.GetMemberByIdAsync), "Member", new { userId = createdMember.Id }, createdMember);
     }
 
-
     [HttpPost]
     [Route("login")]
     public async Task<ActionResult> LoginAsync([FromBody] LoginMemberDto member)
     {
-
         var user = await _userManager.FindByEmailAsync(member.Email);
 
         if (user == null || !(await _userManager.CheckPasswordAsync(user, member.Password))) {
@@ -70,6 +65,4 @@ public class AccessController : ControllerBase
 
         return Ok();
     }
-
-
 }

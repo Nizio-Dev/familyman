@@ -6,7 +6,6 @@ namespace FamilyMan.API.Services;
 
 public class CurrentUserService : ICurrentUserService
 {
-
     private readonly IFamilyManDbContext _context;
     private readonly ClaimsPrincipal _currentUser;
     private readonly string _currentUsersId;
@@ -18,11 +17,8 @@ public class CurrentUserService : ICurrentUserService
         _currentUsersId = _currentUser.Claims.FirstOrDefault( c => c.Type == ClaimTypes.NameIdentifier).Value;
     }
 
-
     public Member? Member => _context.Members.FirstOrDefault(
         m => m.Id.ToString() == _currentUsersId);
 
-
     public ClaimsPrincipal MemberIdentity => _currentUser;
 }
-

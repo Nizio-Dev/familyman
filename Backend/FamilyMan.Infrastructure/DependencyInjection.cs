@@ -12,18 +12,17 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-
         // Database
         services.AddScoped<IFamilyManDbContext>(provider => provider.GetRequiredService<FamilyManDbContext>());
         services.AddDbContext<FamilyManDbContext>(options =>
-            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"))
-        );
-        
+            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
+
         // Identity
         services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<FamilyManDbContext>();
 
         // Identity password requirements
-        services.Configure<IdentityOptions>(options => {
+        services.Configure<IdentityOptions>(options =>
+        {
             options.Password.RequireDigit = false;
             options.Password.RequiredLength = 0;
             options.Password.RequireLowercase = false;
@@ -35,7 +34,6 @@ public static class DependencyInjection
         // Services
         services.AddTransient<IIdentityService, IdentityService>();
 
- 
         return services;
     }
 }

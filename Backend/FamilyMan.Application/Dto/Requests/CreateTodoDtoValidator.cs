@@ -17,5 +17,5 @@ public class CreateTodoDtoValidator : AbstractValidator<CreateTodoDto>
         RuleFor(x => x.PlannedCompletionDate)
             .NotEmpty()
             .WithMessage("Incorrect planned completion date.");
-    }    
+    }
 }

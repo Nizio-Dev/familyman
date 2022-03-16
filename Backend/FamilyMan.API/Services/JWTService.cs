@@ -6,11 +6,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-
 namespace FamilyMan.API.Services;
 public class JWTService : IJWTService 
 {
-        
     private readonly string _secureKey;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly IConfiguration _configuration;
@@ -22,7 +20,6 @@ public class JWTService : IJWTService
         _userManager = userManager;
         _configuration = configuration;
     }
-
 
     public async Task<string> GenerateAsync(ApplicationUser appUser) {
 
@@ -49,6 +46,4 @@ public class JWTService : IJWTService
 
         return new JwtSecurityTokenHandler().WriteToken(securityToken);
     }
-
-
 }

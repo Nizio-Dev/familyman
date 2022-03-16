@@ -10,7 +10,6 @@ namespace FamilyMan.Application.Services;
 
 public class FamilyService : IFamilyService
 {
-
     private readonly IFamilyManDbContext _context;
     private readonly IMapper _mapper;
     private readonly ICurrentUserService _currentUser;
@@ -47,7 +46,4 @@ public class FamilyService : IFamilyService
 
         return _mapper.Map<FamilyDto>(family);
     }
-
-
 }
-

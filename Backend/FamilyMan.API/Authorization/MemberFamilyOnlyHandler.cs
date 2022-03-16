@@ -8,7 +8,6 @@ public class MemberFamilyOnlyHandler : AuthorizationHandler<MemberFamilyOnlyRequ
 {
     protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, MemberFamilyOnlyRequirement requirement, Member member)
     {
-
         var httpContext = context.Resource as HttpContext;
 
         var memberFamily = member.Id.ToString();
@@ -22,5 +21,3 @@ public class MemberFamilyOnlyHandler : AuthorizationHandler<MemberFamilyOnlyRequ
         return Task.CompletedTask;
     }
 }
-
-

@@ -2,8 +2,4 @@
 
 namespace FamilyMan.API.Authorization;
 
-public class MemberOwnerOnlyRequirement : IAuthorizationRequirement
-{
-
-}
-
+public class MemberOwnerOnlyRequiremWent : IAuthorizationRequirement {}

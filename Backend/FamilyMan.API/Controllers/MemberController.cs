@@ -11,15 +11,12 @@ namespace FamilyMan.API.Controllers;
 [ApiController]
 public class MemberController : ControllerBase
 {
-
     private readonly IMemberService _memberService;
-
 
     public MemberController( IMemberService memberService)
     {
         _memberService = memberService;
     }
-
 
     [Authorize(Policy = "OwnerOnly")]
     [HttpGet("{userId}")]
@@ -43,7 +40,6 @@ public class MemberController : ControllerBase
         return Ok(memberToBeFound);
     }
 
-
     [Authorize(Policy = "MemberOwner")]
     [HttpDelete("{userId}")]
     public async Task<ActionResult> DeleteByIdAsync([FromRoute] string userId)
@@ -60,6 +56,4 @@ public class MemberController : ControllerBase
         return NoContent();
 
     }
-
-
 }

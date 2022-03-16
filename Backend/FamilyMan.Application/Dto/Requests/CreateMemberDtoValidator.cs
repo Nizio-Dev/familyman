@@ -9,5 +9,5 @@ public class CreateFamilyDtoValidator : AbstractValidator<CreateFamilyDto>
         RuleFor(x => x.Name)
             .NotEmpty()
             .WithMessage("Email address can not be empty.");
-    }    
+    }  
 }

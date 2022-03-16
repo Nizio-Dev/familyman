@@ -18,7 +18,6 @@ public class MappingProfile : Profile
                 opt => opt.MapFrom(src => src.Families.Select(f => f.Id).ToList())
             );
 
-
         CreateMap<Family, FamilyDto>()
             .ForMember(
                 dest => dest.Head,
@@ -35,5 +34,4 @@ public class MappingProfile : Profile
                 opt => opt.MapFrom(src => src.Owner.Id)
             );
     }
-
 }

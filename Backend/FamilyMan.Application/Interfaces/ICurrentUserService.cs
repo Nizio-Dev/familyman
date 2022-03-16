@@ -6,6 +6,7 @@ namespace FamilyMan.Application.Interfaces;
 public interface ICurrentUserService
 {
     Member? Member { get; }
+
     ClaimsPrincipal MemberIdentity { get; }
 }
 

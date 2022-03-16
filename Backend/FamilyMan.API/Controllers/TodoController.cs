@@ -11,13 +11,11 @@ namespace FamilyMan.API.Controllers;
 [ApiController]
 public class TodoController : ControllerBase
 {
-
     private readonly ITodoService _todoService;
     public TodoController(ITodoService todoService)
     {
         _todoService = todoService;
     }
-
 
     [Authorize]
     [HttpPost]
@@ -37,7 +35,6 @@ public class TodoController : ControllerBase
         return CreatedAtAction(nameof(TodoController.GetTodoAsync), "Todo", new { todoId = createdTodo.Id }, createdTodo);
     }
 
-
     [Authorize]
     [HttpPost("{todoId}/complete")]
     public async Task<ActionResult<TodoDto>> CompleteTodoAsync([FromRoute] string todoId)
@@ -53,7 +50,6 @@ public class TodoController : ControllerBase
 
         return NoContent();
     }
-
 
     [Authorize]
     [HttpGet("{todoId}")]
@@ -77,7 +73,6 @@ public class TodoController : ControllerBase
         return Ok(todoToBeFound);
     }
 
-
     [Authorize]
     [HttpDelete("{todoId}")]
     public async Task<ActionResult> DeleteTodoAsync([FromRoute] string todoId)
@@ -93,6 +88,4 @@ public class TodoController : ControllerBase
 
         return NoContent();
     }
-
-
 }

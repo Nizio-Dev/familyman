@@ -9,7 +9,6 @@ public class MemberOwnerOnlyHandler : AuthorizationHandler<MemberOwnerOnlyRequir
     protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, MemberOwnerOnlyRequirement requirement,
         Member member)
     {
-
         var memberOwner = member.Id.ToString();
         var currentUserId = context.User.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
@@ -21,5 +20,3 @@ public class MemberOwnerOnlyHandler : AuthorizationHandler<MemberOwnerOnlyRequir
         return Task.CompletedTask;
     }
 }
-
-

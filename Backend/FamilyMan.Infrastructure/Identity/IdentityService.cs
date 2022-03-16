@@ -6,9 +6,7 @@ namespace FamilyMan.Infrastructure.Identity;
 
 public class IdentityService : IIdentityService
 {
-
     private readonly UserManager<ApplicationUser> _userManager;
-
 
     public IdentityService(UserManager<ApplicationUser> userManager)
     {

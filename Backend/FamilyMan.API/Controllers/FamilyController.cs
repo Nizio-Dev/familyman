@@ -12,15 +12,12 @@ namespace FamilyMan.API.Controllers;
 [ApiController]
 public class FamilyController : ControllerBase
 {
-
     private readonly IFamilyService _familyService;
-
 
     public FamilyController(IFamilyService familyService)
     {
         _familyService = familyService;
     }
-
 
     [Authorize]
     [HttpPost]
@@ -39,7 +36,6 @@ public class FamilyController : ControllerBase
 
         return CreatedAtAction(nameof(FamilyController.GetFamilyByIdAsync), "Family", new { familyId = createdFamily.Id }, createdFamily);
     }
-
 
     [Authorize]
     [HttpGet("{familyId}")]
@@ -62,6 +58,4 @@ public class FamilyController : ControllerBase
 
         return Ok(familyToBeFound);
     }
-
-
 }

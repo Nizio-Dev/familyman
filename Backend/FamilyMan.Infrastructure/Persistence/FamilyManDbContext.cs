@@ -8,19 +8,19 @@ namespace FamilyMan.Infrastructure.Persistence;
 
 public class FamilyManDbContext : IdentityDbContext<ApplicationUser>, IFamilyManDbContext
 {
-    public FamilyManDbContext(DbContextOptions<FamilyManDbContext> options) : base(options){}
+    public FamilyManDbContext(DbContextOptions<FamilyManDbContext> options) : base(options) {}
 
     public DbSet<Member> Members { get; set; }
+
     public DbSet<Family> Families { get; set; }
+
     public DbSet<Todo> Todos { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
 
-
-
-       builder.Entity<Member>()
+        builder.Entity<Member>()
             .HasMany(m => m.Families)
             .WithMany(f => f.Members);
 
@@ -31,8 +31,5 @@ public class FamilyManDbContext : IdentityDbContext<ApplicationUser>, IFamilyMan
         builder.Entity<Member>()
             .HasMany(m => m.Todos)
             .WithOne(t => t.Owner);
-
-
     }
 }
-

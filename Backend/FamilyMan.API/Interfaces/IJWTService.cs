@@ -6,4 +6,3 @@ public interface IJWTService
 {
     public Task<string> GenerateAsync(ApplicationUser appUser);
 }
-

@@ -1,5 +1,4 @@
 using FamilyMan.API.Services;
-using FamilyMan.Application.Interfaces;
 using FamilyMan.Domain.Models;
 using FamilyMan.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Http;
@@ -10,13 +9,12 @@ using System.Security.Claims;
 using Xunit;
 
 namespace FamilyMan.API.Tests;
+
 public class CurrentUserServiceTests
 {
-   
     [Fact]
     public void Member_MemberModelTest_ReturnsUsersMember()
     {
-
         var options = new DbContextOptionsBuilder<FamilyManDbContext>()
             .UseInMemoryDatabase(databaseName: "in-memory")
             .Options;
@@ -83,5 +81,4 @@ public class CurrentUserServiceTests
             Assert.True(currentUserService.Member.Id.ToString() == "22222222-2222-2222-2222-222222222222");
         }
     }
-
 }

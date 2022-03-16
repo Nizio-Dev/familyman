@@ -1,13 +1,10 @@
-﻿using FamilyMan.API.Controllers;
-using FamilyMan.Application.Dto.Requests;
+﻿using FamilyMan.Application.Dto.Requests;
 using Xunit;
 
 namespace FamilyMan.API.Tests;
 
 public class AccessControllerTests
 {
-
-
     [Fact]
     public void Register_RegisterStandardUser_RegistersUser()
     {
@@ -17,7 +14,5 @@ public class AccessControllerTests
             Password = "123Qwe!",
             ConfirmPassword = "123Qwe!"
         };
-
     }
 }
-

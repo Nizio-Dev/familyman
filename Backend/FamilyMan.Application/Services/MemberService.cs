@@ -7,10 +7,8 @@ using FamilyMan.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace FamilyMan.Application.Services;
-
 public class MemberService : IMemberService
 {
-
     private readonly IMapper _mapper;
     private readonly IIdentityService _identityService;
     private readonly IFamilyManDbContext _dbContext;
@@ -22,10 +20,8 @@ public class MemberService : IMemberService
         _dbContext = dbContext;
     }
 
-
     public async Task<MemberDto> CreateMemberAsync(CreateMemberDto member)
     {
-
         var memberExists = await _dbContext.Members.FirstOrDefaultAsync(m => m.Email == member.Email);
 
         if(memberExists != null)
@@ -69,7 +65,6 @@ public class MemberService : IMemberService
         return _mapper.Map<MemberDto>(member);
     }
 
-
     public async Task DeleteMemberByIdAsync(string memberId)
     {
         var member = await _dbContext.Members.FindAsync(Guid.Parse(memberId));
@@ -83,6 +78,4 @@ public class MemberService : IMemberService
         _dbContext.Members.Remove(member);
         await _dbContext.SaveChangesAsync();
     }
-
-
 }

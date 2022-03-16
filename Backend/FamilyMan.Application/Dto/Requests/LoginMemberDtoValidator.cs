@@ -15,5 +15,5 @@ public class LoginMemberDtoValidator : AbstractValidator<LoginMemberDto>
         RuleFor(x => x.Password)
             .NotEmpty()
             .WithMessage("Password can not be empty.");
-    }    
+    }
 }

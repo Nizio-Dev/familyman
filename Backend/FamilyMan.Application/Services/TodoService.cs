@@ -10,11 +10,9 @@ namespace FamilyMan.Application.Services;
 
 public class TodoService : ITodoService
 {
-
     private readonly IFamilyManDbContext _context;
     private readonly ICurrentUserService _currentUser;
     private readonly IMapper _mapper;
-
 
     public TodoService(IFamilyManDbContext context, ICurrentUserService currentUser, IMapper mapper)
     {
@@ -22,11 +20,8 @@ public class TodoService : ITodoService
         _currentUser = currentUser;
         _mapper = mapper;
     }
-
-
     public async Task<TodoDto> CreateTodoAsync(CreateTodoDto todo)
     {
-
         var newTodo = new Todo(todo.Name, todo.Description, _currentUser.Member, todo.Priority, 
             todo.PlannedCompletionDate);
 
@@ -76,6 +71,4 @@ public class TodoService : ITodoService
 
         return _mapper.Map<TodoDto>(todo);
     }
-
-
 }

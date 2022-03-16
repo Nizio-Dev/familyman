@@ -6,6 +6,6 @@ namespace FamilyMan.Application.Interfaces;
 public interface IFamilyService
 {
     Task<FamilyDto> CreateFamilyAsync(CreateFamilyDto family);
-    Task<FamilyDto> GetFamilyByIdAsync(string id);
 
+    Task<FamilyDto> GetFamilyByIdAsync(string id);
 }
