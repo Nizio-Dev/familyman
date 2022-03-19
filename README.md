@@ -1,3 +1,3 @@
 # familyman
 
-TODO
+Each subfolder (Backend/Frontend) contains its own appropriate readme.
